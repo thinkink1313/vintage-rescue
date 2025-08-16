@@ -1,46 +1,86 @@
-ind<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Vintage Rescue</title>
-<meta name="description" content="Field guide to Victorian uranium/vaseline glass: photos, quick IDs, values, and watch-outs." />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vintage Rescue — Victorian Uranium & Green Glass</title>
+<meta name="description" content="Field + deep-dive guide to Victorian uranium (vaseline) and green glass. Searchable, mobile-friendly, with images, quick IDs, values, and watch-outs." />
 <style>
   :root{
-    --bg:#0d1117; --panel:#0f1520; --ink:#e6edf3; --muted:#9aa4b2; --line:#1f2633;
-    --accent:#22c55e; --warn:#f59e0b; --rare:#ef4444; --xrare:#8b5cf6;
+    --bg:#ffffff;
+    --ink:#0d1b0f;         /* deep green text */
+    --muted:#4b6b55;
+    --line:#dfe7e2;
+    --card:#f7fbf9;
+    --accent:#16a34a;      /* green accents */
+    --accent-2:#065f46;    /* darker green */
+    --warn:#b45309;
+    --rare:#b91c1c;
+    --xrare:#6d28d9;
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--ink)}
-  header{position:sticky;top:0;z-index:5;padding:14px 16px;border-bottom:1px solid var(--line);
-    background:linear-gradient(180deg,rgba(13,17,23,.98),rgba(13,17,23,.85));backdrop-filter:blur(6px)}
-  h1{margin:0;font-size:18px;letter-spacing:.2px}
-  .sub{font-size:12px;color:var(--muted);margin-top:4px}
-  #search{width:100%;margin-top:10px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:#0a0f18;color:var(--ink)}
-  .toolbar{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
-  .tag{font-size:12px;border:1px solid var(--line);padding:6px 8px;border-radius:999px;color:var(--muted)}
-  .grid{display:grid;gap:16px;padding:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-  .card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel)}
-  .imgbox{position:relative;aspect-ratio:4/3;background:#0a0f18;overflow:hidden}
-  .imgbox img{width:100%;height:100%;object-fit:cover;display:block}
-  .wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.12;pointer-events:none;
-      font-weight:900;font-size:42px;color:#e6edf3;letter-spacing:3px;mix-blend-mode:overlay;text-transform:uppercase}
-  .pill{position:absolute;top:10px;left:10px;padding:6px 10px;border-radius:999px;font-weight:700;font-size:12px;color:#0a0f18}
-  .p-common{background:var(--accent)} .p-mid{background:var(--warn)} .p-rare{background:var(--rare)} .p-xrare{background:var(--xrare);color:#fff}
-  .body{padding:14px 14px 16px}
-  .title{font-weight:800;font-size:16px}
-  .meta{font-size:12px;color:var(--muted);margin-top:2px}
-  .list{margin-top:10px;font-size:13px;line-height:1.5}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+  a{color:var(--accent-2);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* Header banner */
+  .banner{
+    background:linear-gradient(180deg,#e7f7ec,#ffffff);
+    border-bottom:1px solid var(--line);
+    padding:22px 16px 16px;
+    text-align:center;
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:saturate(1.2) blur(6px);
+  }
+  .brand{margin:0;font-size:28px;letter-spacing:1px;font-weight:900;color:#0f3d23}
+  .tagline{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+  /* Tools */
+  .tools{display:grid;gap:10px;grid-template-columns:1fr;max-width:1100px;margin:12px auto 0;padding:0 12px}
+  #search{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:15px}
+  .actions{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font-size:13px;color:var(--accent-2);cursor:pointer}
+  .btn:hover{background:#f1f7f4}
+
+  /* Era nav */
+  .eranav{display:flex;gap:8px;overflow:auto;padding:10px 12px;border-bottom:1px solid var(--line);background:#fff}
+  .chip{border:1px solid var(--line);padding:6px 10px;border-radius:999px;font-size:12px;color:var(--muted);white-space:nowrap}
+  .chip.active{background:#eaf7ee;color:#0f3d23;border-color:#cfe7d8}
+
+  /* Sections & cards */
+  .wrap{max-width:1100px;margin:0 auto;padding:16px 12px 60px}
+  h2{margin:18px 0 6px;font-size:20px}
+  .sub{margin:0 0 12px;color:var(--muted);font-size:13px}
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .card{border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden}
+  .imgbox{position:relative;background:#eaf5ef;aspect-ratio:4/3;overflow:hidden}
+  .imgbox img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in}
+  .wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#0f3d23;opacity:.08;font-weight:900;font-size:40px;letter-spacing:3px;pointer-events:none;mix-blend-mode:multiply}
+  .badge{position:absolute;bottom:10px;left:10px;background:#ffffffd9;border:1px solid var(--line);padding:4px 8px;border-radius:999px;font-size:12px;color:var(--accent-2)}
+  .body{padding:12px 12px 14px;background:var(--card)}
+  .title{margin:0;font-weight:800}
+  .meta{margin:4px 0 8px;color:var(--muted);font-size:12px}
+  .facts{font-size:14px;line-height:1.5}
+  .facts ul{margin:8px 0 0 18px}
   .kv{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-  .kv span{background:#0a0f18;border:1px solid var(--line);padding:6px 8px;border-radius:8px;font-size:12px;color:var(--muted)}
-  .note{padding:12px 14px;background:#0a0f18;border:1px dashed var(--line);border-radius:12px;margin:16px}
-  footer{padding:22px;text-align:center;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
-  /* Modal for tapping images */
-  .modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+  .pill{border:1px solid var(--line);background:#fff;padding:6px 8px;border-radius:8px;font-size:12px;color:var(--muted)}
+  details{margin:10px 0 0;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  summary{cursor:pointer;padding:10px 12px;background:#f6faf8;color:#0f3d23;font-weight:700;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  .deep{padding:12px 12px 14px;font-size:14px;line-height:1.55}
+  .deep h4{margin:8px 0 6px;font-size:14px}
+  .warn{color:var(--warn);font-weight:700}
+  .rare{color:var(--rare);font-weight:700}
+  .xrare{color:var(--xrare);font-weight:700}
+
+  /* Modal */
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:18px;z-index:100}
   .modal.open{display:flex}
-  .modal img{max-width:100%;max-height:90vh;border-radius:12px}
-  .modal .x{position:absolute;top:14px;right:16px;font-size:28px;color:#fff;cursor:pointer}
-  a.imglink{position:absolute;inset:0;display:block}
+  .modal img{max-width:100%;max-height:90vh;border-radius:10px}
+  .closex{position:absolute;top:10px;right:14px;color:#fff;font-size:28px;cursor:pointer}
+
+  /* Footer */
+  footer{padding:24px;text-align:center;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
 </style>
 <script>
   function filterCards(){
@@ -50,8 +90,14 @@ ind<!DOCTYPE html>
       c.style.display = txt.includes(q) ? '' : 'none';
     });
   }
+  function expandAll(){
+    document.querySelectorAll('details').forEach(d=>d.open=true);
+  }
+  function collapseAll(){
+    document.querySelectorAll('details').forEach(d=>d.open=false);
+  }
   window.addEventListener('DOMContentLoaded', ()=>{
-    // enlarge on click
+    // image modal
     document.querySelectorAll('.imgbox img').forEach(img=>{
       img.addEventListener('click', ()=>{
         const m = document.getElementById('modal');
@@ -60,169 +106,298 @@ ind<!DOCTYPE html>
       });
     });
     document.getElementById('modal').addEventListener('click', (e)=>{
-      if(e.target.classList.contains('x') || e.target.id==='modal') e.currentTarget.classList.remove('open');
+      if(e.target.classList.contains('closex') || e.target.id==='modal') e.currentTarget.classList.remove('open');
+    });
+
+    // era nav locator
+    const chips = document.querySelectorAll('.chip[data-target]');
+    chips.forEach(ch=>{
+      ch.addEventListener('click', ()=>{
+        const id = ch.getAttribute('data-target');
+        const el = document.getElementById(id);
+        if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
     });
   });
 </script>
 </head>
 <body>
-<header>
-<header>
-    <img src="logo.png" alt="Vintage Rescue" style="max-width:300px;">
-</header>
 
-  <div class="sub">Use the search to jump (e.g., “Davidson”, “Sowerby”, “goblet”, “pearline”). Tap images to enlarge.</div>
-  <input id="search" oninput="filterCards()" placeholder="Search…">
-  <div class="toolbar">
-    <span class="tag">Era: 1880s–1905 (Victorian → Edwardian)</span>
-    <span class="tag">Carry a 365–395nm UV light</span>
-    <span class="tag">Brand watermark: Vintage Rescue</span>
+<!-- Banner -->
+<div class="banner">
+  <h1 class="brand">VINTAGE RESCUE</h1>
+  <p class="tagline">Portable Antique Field Guide — quick IDs + expandable deep dives</p>
+  <div class="tools">
+    <input id="search" oninput="filterCards()" placeholder="Search makers, forms, terms… e.g., Davidson, pearline, goblet, epergne" />
+    <div class="actions">
+      <button class="btn" onclick="expandAll()">Expand all deep dives</button>
+      <button class="btn" onclick="collapseAll()">Collapse all</button>
+      <span class="btn" title="Always carry one in the field">Tip: carry a 365–395 nm UV light</span>
+    </div>
   </div>
-</header>
-
-<div class="note">
-  <strong>Field tips:</strong> Real uranium glass gives a bright, even <em>electric green</em> glow under UV (edges & base ring pop first).
-  Opalescent <em>white</em> rims (“pearline”) are a Davidson tell. Avoid heavy clouding (“glass sickness”) unless rare & cheap.
+  <div class="eranav">
+    <span class="chip active" data-target="era-victorian">Victorian (c. 1880–1905)</span>
+    <span class="chip">Next eras coming here →</span>
+  </div>
 </div>
 
-<section class="grid">
+<div class="wrap">
 
-  <!-- 1: Davidson Primrose Pearline (uranium) -->
-  <article class="card">
-    <div class="imgbox">
-      <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Vaseline_Glass.jpg"
-           alt="Davidson Primrose Pearline uranium bowl glowing under UV (opalescent rim)">
-      <div class="wm">Vintage Rescue</div>
-      <div class="pill p-mid">Common → Mid</div>
-    </div>
-    <div class="body">
-      <div class="title">Davidson “Primrose Pearline” (Uranium)</div>
-      <div class="meta">England • c. 1889–1905 • Pressed glass with opalescent white rim</div>
-      <div class="list">
-        • Strong UV glow; look for white pearline rim + crisp pressed scrolls/ribs.<br>
-        • May show British “Rd No.” on base; clean examples flip fast; sets > singles.
-      </div>
-      <div class="kv">
-        <span>Field buy: $25–$60</span><span>Sell: $100–$180</span><span>Rarity: 🟠</span>
-      </div>
-    </div>
-  </article>
+  <!-- VICTORIAN -->
+  <section id="era-victorian">
+    <h2>Victorian Uranium & Green Glass</h2>
+    <p class="sub">England & Bohemia, c. 1880s–1905. Uranium (“vaseline”) glows electric green under 365–395 nm UV. Non-uranium green is deeper emerald/olive and does not glow.</p>
 
-  <!-- 2: Sowerby pressed uranium plate -->
-  <article class="card">
-    <div class="imgbox">
-      <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Uranium_glass_plate_under_UV_light.jpg"
-           alt="Sowerby uranium pressed plate glowing under UV">
-      <div class="wm">Vintage Rescue</div>
-      <div class="pill p-mid">Mid</div>
-    </div>
-    <div class="body">
-      <div class="title">Sowerby Pressed Uranium Plate</div>
-      <div class="meta">England • c. 1880s–1890s • Botanical/geom. patterns</div>
-      <div class="list">
-        • Even glow; sturdy weight; crisp mold detail (not mushy).<br>
-        • Some patterns numbered—photo and compare later for exact ID.
-      </div>
-      <div class="kv">
-        <span>Field buy: $40–$90</span><span>Sell: $120–$220</span><span>Rarity: 🟠</span>
-      </div>
-    </div>
-  </article>
+    <div class="grid">
 
-  <!-- 3: Webb cut/etched uranium -->
-  <article class="card">
-    <div class="imgbox">
-      <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Vaseline_glass_bowl_under_UV_light.jpg"
-           alt="Thomas Webb cut/etched uranium bowl glowing under UV">
-      <div class="wm">Vintage Rescue</div>
-      <div class="pill p-rare">Rare</div>
-    </div>
-    <div class="body">
-      <div class="title">Thomas Webb &amp; Sons — Cut/Etched Uranium</div>
-      <div class="meta">England • c. 1880s–1890s • Hand-blown, polished pontil</div>
-      <div class="list">
-        • Deep cutting/acid-etch; superior clarity & glow; polished pontil + honest base wear.<br>
-        • Beware molded “cuts” (repro tell) and perfectly even machine facets.
-      </div>
-      <div class="kv">
-        <span>Field buy: $120–$300</span><span>Sell: $400–$800+</span><span>Rarity: 🔴</span>
-      </div>
-    </div>
-  </article>
+      <!-- Card 1: Davidson Primrose Pearline (uranium) -->
+      <article class="card">
+        <div class="imgbox">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Vaseline_Glass.jpg" alt="Davidson Primrose Pearline uranium bowl glowing under UV">
+          <div class="wm">Vintage Rescue</div>
+          <div class="badge">Rarity: Mid</div>
+        </div>
+        <div class="body">
+          <h3 class="title">Davidson “Primrose Pearline” (Uranium)</h3>
+          <div class="meta">England • c. 1889–1905 • Pressed glass with opalescent white rim</div>
+          <div class="facts">
+            <ul>
+              <li><strong>ID:</strong> Bright UV glow + milky <em>pearline</em> rim; crisp scroll/rib molds.</li>
+              <li><strong>Marks:</strong> Sometimes British “Rd No.” on base; pattern variants exist.</li>
+              <li><strong>Buy/Sell:</strong> Field buy $25–60 • Sell $100–180 (sets & large bowls do best).</li>
+            </ul>
+          </div>
 
-  <!-- 4: Victorian uranium epergne -->
-  <article class="card">
-    <div class="imgbox">
-      <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Epergne_with_uranium_glass_bowls_and_flowers.jpg"
-           alt="Victorian uranium glass epergne with silver mount">
-      <div class="wm">Vintage Rescue</div>
-      <div class="pill p-xrare">High Value</div>
-    </div>
-    <div class="body">
-      <div class="title">Victorian Uranium Epergne (Centerpiece)</div>
-      <div class="meta">England • c. 1880s–1900s • Multi-horn centerpiece</div>
-      <div class="list">
-        • Dramatic glow + ornate form; often with metal mounts; scarce on thrift shelves.<br>
-        • Check tips/ruffles for chips; confirm all horns match (replacements kill value).
-      </div>
-      <div class="kv">
-        <span>Field buy: $150–$300</span><span>Sell: $500–$900+</span><span>Rarity: 🟣</span>
-      </div>
-    </div>
-  </article>
+          <details>
+            <summary>Deep dive: history, traits, comps, watch-outs</summary>
+            <div class="deep">
+              <h4>Maker & history</h4>
+              George Davidson & Co. (Gateshead, UK) popularized “pearline” opalescent rims in the 1890s; <em>primrose</em> = yellow-green (uranium) line.
+              <h4>Key traits</h4>
+              Distinct opalescent white at edges; evenly glowing body under UV; well-finished feet; pressed seams but crisp.
+              <h4>Price comps</h4>
+              Clean serving bowls/handled baskets commonly $120–180; rarer forms higher. Heavy staining (“glass sickness”) reduces value.
+              <h4 class="warn">Watch-outs</h4>
+              Clouding from dishwasher/chemicals; chips at rim beads; later non-uranium pearline exists (no glow).
+            </div>
+          </details>
 
-  <!-- 5: Uranium goblet / small stem -->
-  <article class="card">
-    <div class="imgbox">
-      <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Uranium_glass_goblet.jpg"
-           alt="Uranium glass goblet glowing under UV">
-      <div class="wm">Vintage Rescue</div>
-      <div class="pill p-mid">Common → Mid</div>
-    </div>
-    <div class="body">
-      <div class="title">Uranium Goblet / Small Stem</div>
-      <div class="meta">UK/Bohemia • c. 1880s–1900s • Pressed or blown</div>
-      <div class="list">
-        • Bright edge/base glow; lighter yellow-green in daylight; pressed seams OK on cheaper stems.<br>
-        • Pairs/sets sell best; inspect rims carefully.
-      </div>
-      <div class="kv">
-        <span>Field buy: $15–$40</span><span>Sell: $40–$120+</span><span>Rarity: 🟠</span>
-      </div>
-    </div>
-  </article>
+          <div class="kv">
+            <span class="pill">Form: bowls, baskets, comports</span>
+            <span class="pill">Fast flip: ✅</span>
+            <span class="pill">UV: strong electric green</span>
+          </div>
+        </div>
+      </article>
 
-  <!-- 6: Compare — non-uranium green lookalike -->
-  <article class="card">
-    <div class="imgbox">
-      <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Green_glass_bowl.jpg"
-           alt="Non-uranium Victorian green pressed glass bowl (no UV glow)">
-      <div class="wm">Vintage Rescue</div>
-      <div class="pill p-common">Compare</div>
-    </div>
-    <div class="body">
-      <div class="title">Lookalike: Victorian Green (Non-Uranium)</div>
-      <div class="meta">UK/Bohemia • c. 1870s–1890s • Pressed soda-lime glass</div>
-      <div class="list">
-        • Deeper emerald/olive; heavier feel; <em>no UV glow</em>; molds can look softer.<br>
-        • Good practice buys; don’t overpay—sell as decor unless a known pattern/maker.
-      </div>
-      <div class="kv">
-        <span>Field buy: $5–$20</span><span>Sell: $20–$60</span><span>Rarity: 🟢</span>
-      </div>
-    </div>
-  </article>
+      <!-- Card 2: Sowerby pressed uranium plate -->
+      <article class="card">
+        <div class="imgbox">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Uranium_glass_plate_under_UV_light.jpg" alt="Sowerby uranium pressed plate under UV">
+          <div class="wm">Vintage Rescue</div>
+          <div class="badge">Rarity: Mid</div>
+        </div>
+        <div class="body">
+          <h3 class="title">Sowerby Pressed Uranium Plate</h3>
+          <div class="meta">England • c. 1880s–1890s • Botanical/geom. patterns</div>
+          <div class="facts">
+            <ul>
+              <li><strong>ID:</strong> Even glow; sturdy weight; sharp mold detail; pattern numbers on some bases.</li>
+              <li><strong>Buy/Sell:</strong> Field buy $40–90 • Sell $120–220 (multiples/sets increase value).</li>
+            </ul>
+          </div>
 
-</section>
+          <details>
+            <summary>Deep dive</summary>
+            <div class="deep">
+              <h4>Maker</h4>
+              Sowerby (Gateshead) was a leading pressed-glass house; uranium batches used for showy tableware.
+              <h4>Traits</h4>
+              Consistent color; defined veining in botanical patterns; good base wear on authentic pieces.
+              <h4>Comps</h4>
+              Large serving platters/bread plates in strong patterns: up to ~$200+. Chips drop value.
+              <h4 class="warn">Watch-outs</h4>
+              Mushy mold lines (worn molds or repro); no glow = non-uranium lookalike.
+            </div>
+          </details>
 
+          <div class="kv">
+            <span class="pill">Form: plates, platters</span>
+            <span class="pill">Fast flip: ✅</span>
+            <span class="pill">UV: strong, even</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3: Thomas Webb cut/etched uranium -->
+      <article class="card">
+        <div class="imgbox">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Vaseline_glass_bowl_under_UV_light.jpg" alt="Thomas Webb cut/etched uranium bowl under UV">
+          <div class="wm">Vintage Rescue</div>
+          <div class="badge">Rarity: Rare</div>
+        </div>
+        <div class="body">
+          <h3 class="title">Thomas Webb &amp; Sons — Cut/Etched Uranium</h3>
+          <div class="meta">England • c. 1880s–1890s • Hand-blown, polished pontil</div>
+          <div class="facts">
+            <ul>
+              <li><strong>ID:</strong> Deep wheel-cut/acid-etched designs; high clarity; polished pontil with honest wear.</li>
+              <li><strong>Buy/Sell:</strong> Field buy $120–300 • Sell $400–800+ (complex forms higher).</li>
+            </ul>
+          </div>
+
+          <details>
+            <summary>Deep dive</summary>
+            <div class="deep">
+              <h4>Maker</h4>
+              Webb was elite in English art glass; uranium batches used for luxury table and decorative wares.
+              <h4>Traits</h4>
+              Crisp cutting (not molded), balanced proportions, often slight color gradation in thicker areas.
+              <h4>Comps</h4>
+              Signed/attributed pieces with complex cutting can exceed $1k at auction; plain bowls less.
+              <h4 class="warn">Watch-outs</h4>
+              Molded “fake cutting,” perfectly uniform machine facets, and freshly ground rims = red flags.
+            </div>
+          </details>
+
+          <div class="kv">
+            <span class="pill rare">Higher value</span>
+            <span class="pill">Form: bowls, vases</span>
+            <span class="pill">UV: vivid</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4: Victorian uranium epergne -->
+      <article class="card">
+        <div class="imgbox">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Epergne_with_uranium_glass_bowls_and_flowers.jpg" alt="Victorian uranium epergne centerpiece">
+          <div class="wm">Vintage Rescue</div>
+          <div class="badge">Rarity: High value</div>
+        </div>
+        <div class="body">
+          <h3 class="title">Victorian Uranium Epergne (Centerpiece)</h3>
+          <div class="meta">England • c. 1880s–1900s • Multi-horn centerpiece, often with metal mount</div>
+          <div class="facts">
+            <ul>
+              <li><strong>ID:</strong> Multiple horns/trumpets; ruffled or crimped edges; strong UV glow.</li>
+              <li><strong>Buy/Sell:</strong> Field buy $150–300 • Sell $500–900+ (complete, matched parts).</li>
+            </ul>
+          </div>
+
+          <details>
+            <summary>Deep dive</summary>
+            <div class="deep">
+              <h4>Context</h4>
+              Table centerpieces of the high Victorian taste; uranium examples are scarce on thrift shelves.
+              <h4>Traits</h4>
+              Matching glass color and edge treatments across horns; period metalwork; screws show age.
+              <h4>Comps</h4>
+              Complete sets with no damage command strong prices; single replacement horns much less.
+              <h4 class="warn">Watch-outs</h4>
+              Mismatched replacement horns; tip chips; UV glow absent = non-uranium.
+            </div>
+          </details>
+
+          <div class="kv">
+            <span class="pill xrare">Rare on thrift shelves</span>
+            <span class="pill">Form: centerpieces</span>
+            <span class="pill">UV: strong</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5: Uranium goblet / small stem -->
+      <article class="card">
+        <div class="imgbox">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Uranium_glass_goblet.jpg" alt="Uranium glass goblet under UV">
+          <div class="wm">Vintage Rescue</div>
+          <div class="badge">Rarity: Common → Mid</div>
+        </div>
+        <div class="body">
+          <h3 class="title">Uranium Goblet / Small Stem</h3>
+          <div class="meta">UK/Bohemia • c. 1880s–1900s • Pressed or blown</div>
+          <div class="facts">
+            <ul>
+              <li><strong>ID:</strong> Bright edge/base glow; daylight color yellow-green; seams OK on pressed stems.</li>
+              <li><strong>Buy/Sell:</strong> Field buy $15–40 • Sell $40–120+ (pairs/sets move faster).</li>
+            </ul>
+          </div>
+
+          <details>
+            <summary>Deep dive</summary>
+            <div class="deep">
+              <h4>Notes</h4>
+              Many workshops made utilitarian uranium stems; buy multiples when possible for better sell-through.
+              <h4 class="warn">Watch-outs</h4>
+              Rim chips; dull non-glowing green (lookalike); overly light modern glass with no wear.
+            </div>
+          </details>
+
+          <div class="kv">
+            <span class="pill">Fast flip: ✅</span>
+            <span class="pill">Form: goblets, cordials</span>
+            <span class="pill">UV: strong</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6: Compare — non-uranium green lookalike -->
+      <article class="card">
+        <div class="imgbox">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Green_glass_bowl.jpg" alt="Non-uranium Victorian green pressed glass bowl (no UV glow)">
+          <div class="wm">Vintage Rescue</div>
+          <div class="badge">Compare</div>
+        </div>
+        <div class="body">
+          <h3 class="title">Lookalike: Victorian Green (Non-Uranium)</h3>
+          <div class="meta">UK/Bohemia • c. 1870s–1890s • Pressed soda-lime glass</div>
+          <div class="facts">
+            <ul>
+              <li><strong>ID:</strong> Deeper emerald/olive; heavier feel; <em>no UV glow</em>; softer mold lines.</li>
+              <li><strong>Buy/Sell:</strong> Field buy $5–20 • Sell $20–60 (decor play; ID pattern to do better).</li>
+            </ul>
+          </div>
+
+          <details>
+            <summary>Deep dive</summary>
+            <div class="deep">
+              <h4>Why include?</h4>
+              These fill shelves and trick beginners; great practice for learning mold sharpness and UV checks.
+              <h4 class="warn">Watch-outs</h4>
+              Don’t overpay; value mostly decorative unless matched to a desirable pattern/maker.
+            </div>
+          </details>
+
+          <div class="kv">
+            <span class="pill">Form: bowls, plates</span>
+            <span class="pill">Fast flip: ⚪ depends</span>
+            <span class="pill">UV: none</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Future sections placeholder (we'll add once Victorian is confirmed working) -->
+  <section id="era-next">
+    <h2>Next Eras (Coming Up)</h2>
+    <p class="sub">Edwardian → Art Nouveau/Art Deco → Depression → Mid-Century. We’ll slot them in here once you confirm images load perfectly.</p>
+  </section>
+
+</div>
+
+<!-- Modal -->
 <div id="modal" class="modal">
-  <div class="x" title="Close">×</div>
-  <img src="" alt="Enlarged image">
+  <div class="closex" title="Close">×</div>
+  <img src="" alt="Enlarged view">
 </div>
 
 <footer>
-  © Vintage Rescue — Images load from Wikimedia Commons; page works anywhere you have internet.
+  © Vintage Rescue — Images load from Wikimedia Commons. Always verify with a UV light in the field.
 </footer>
+
 </body>
 </html>
-ex.html
+
